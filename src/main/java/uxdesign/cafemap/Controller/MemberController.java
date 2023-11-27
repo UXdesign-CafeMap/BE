@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import uxdesign.cafemap.Common.Response.BaseResponse;
-import uxdesign.cafemap.Dto.MemberRequest;
+import uxdesign.cafemap.Dto.Request.MemberRequest;
 import uxdesign.cafemap.Service.MemberService;
 
 @Slf4j

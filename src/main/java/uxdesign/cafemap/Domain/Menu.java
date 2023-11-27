@@ -4,13 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class Review {
-    private Date upload_date;
-    private String content;
-    private String reviewImg;
+public class Menu {
+    private String menuName;
+    private String menuPrice;
 }

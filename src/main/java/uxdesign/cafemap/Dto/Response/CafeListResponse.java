@@ -1,4 +1,4 @@
-package uxdesign.cafemap.Dto;
+package uxdesign.cafemap.Dto.Response;
 
 import lombok.*;
 import uxdesign.cafemap.Domain.Cafe;
@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class CafeListResponse {
-    List<Cafe> cafeList;
+    private List<Cafe> cafeList;
 }

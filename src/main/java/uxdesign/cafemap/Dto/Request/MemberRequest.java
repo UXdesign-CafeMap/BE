@@ -1,4 +1,4 @@
-package uxdesign.cafemap.Dto;
+package uxdesign.cafemap.Dto.Request;
 
 import lombok.*;
 
