@@ -10,6 +10,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 public class Review {
+    private int memberId;
     private Date upload_date;
     private String content;
     private String reviewImg;
