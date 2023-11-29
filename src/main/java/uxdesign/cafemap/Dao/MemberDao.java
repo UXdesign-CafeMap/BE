@@ -38,4 +38,12 @@ public class MemberDao {
 
         return jdbcTemplate.queryForObject(returnSql, returnParam, returnMapper);
     }
+
+    public Boolean login(Member member) {
+        String sql = "select exists(select * from member where email=:email and password=:password)";
+        Map<String, String> param = Map.of("email", member.getEmail(),
+                "password", member.getPassword());
+
+        return jdbcTemplate.queryForObject(sql, param, Boolean.class);
+    }
 }
