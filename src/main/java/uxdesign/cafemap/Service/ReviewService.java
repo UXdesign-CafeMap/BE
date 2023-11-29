@@ -21,7 +21,7 @@ import java.util.List;
 public class ReviewService {
     private final ReviewDao reviewDao;
     public BaseResponse<String> postReview(ReviewRequest reviewRequest){
-        reviewDao.save(reviewRequest.getMemberId(), reviewRequest.getCafeId(), reviewRequest.getContent());
+        reviewDao.save(reviewRequest.getMemberId(), reviewRequest.getCafeId(), reviewRequest.getContent(), reviewRequest.getImgUrlList());
         return new BaseResponse<>("리뷰 작성에 성공하였습니다.");
     }
 

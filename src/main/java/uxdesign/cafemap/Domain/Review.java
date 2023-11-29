@@ -5,13 +5,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class Review {
+    private int reviewId;
     private int memberId;
     private Date upload_date;
     private String content;
-    private String reviewImg;
+    private List<String> reviewImgList;
 }

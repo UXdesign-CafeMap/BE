@@ -20,14 +20,29 @@ public class ReviewDao {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public void save(int mamberId, int cafeId, String content) {
-        String sql = "insert into review (member_id, cafe_id, content, reviewImg) values (:memberId, :cafeId, :content, :reviewImg)";
+    public void save(int mamberId, int cafeId, String content, List<String> imgUrlList) {
+        String sql = "insert into review (member_id, cafe_id, content) values (:memberId, :cafeId, :content)";
         Map<String, Object> param = Map.of("memberId", mamberId,
                 "cafeId", cafeId,
-                "content", content,
-                "reviewImg", "dsfdfsdf");
+                "content", content);
 
         jdbcTemplate.update(sql, param);
+
+        String returnSql = "select review_id from review where member_id=:memberId and cafe_id=:cafeId and content=:content";
+        Map<String, Object> returnParam = Map.of("memberId", mamberId,
+                "cafeId", cafeId,
+                "content", content);
+
+        int reviewId = jdbcTemplate.queryForObject(returnSql, returnParam, Integer.class);
+
+        for (String imgUrl : imgUrlList) {
+            String reviewImgSql = "insert into reviewImage (review_id, image) values (:reviewId, :image)";
+            Map<String, Object> reviewImgParam = Map.of("reviewId", reviewId,
+                    "image", imgUrl);
+
+            jdbcTemplate.update(reviewImgSql, reviewImgParam);
+        }
+
     }
 
     public List<Review> getReviews(int cafeId) {
@@ -36,18 +51,33 @@ public class ReviewDao {
 
         RowMapper<Review> mapper = (rs, rowNum) -> {
             Review review = new Review();
+            review.setReviewId(rs.getInt("review_id"));
             review.setMemberId(rs.getInt("member_id"));
             review.setContent(rs.getString("content"));
-            review.setReviewImg(rs.getString("reviewImg"));
             review.setUpload_date(rs.getDate("upload_at"));
             return review;
         };
 
-        return jdbcTemplate.query(sql, param, mapper);
+        List<Review> reviewList = jdbcTemplate.query(sql, param, mapper);
+
+        for (Review review1 : reviewList) {
+            String reviewImgSql = "select image from reviewImage where review_id=:reviewId";
+            Map<String, Object> reviewImgParam = Map.of("reviewId", review1.getReviewId());
+
+            RowMapper<String> reviewImgMapper = (rs, rowNum) -> {
+                return rs.getString("image");
+            };
+
+            List<String> reviewImg = jdbcTemplate.query(reviewImgSql, reviewImgParam, reviewImgMapper);
+
+            review1.setReviewImgList(reviewImg);
+        }
+
+        return reviewList;
     }
 
     public int getReviewCount(int memberId) {
-        String sql = "select count(*) from review where member_id=:memberId";
+        String sql = "c";
         Map<String, Object> param = Map.of("memberId", memberId);
 
         return jdbcTemplate.queryForObject(sql, param, Integer.class);
