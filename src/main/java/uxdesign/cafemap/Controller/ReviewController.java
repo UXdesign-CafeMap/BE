@@ -34,7 +34,7 @@ public class ReviewController {
 
     // 리뷰 조회
     @GetMapping("/")
-    public BaseResponse<GetReviewResponse> getReviews(@RequestBody @Valid CafeIdRequest cafeIdRequest){
+    public BaseResponse<GetReviewResponse> getReviews(@ModelAttribute @Valid CafeIdRequest cafeIdRequest){
         log.info("[ReviewController.getReviews]");
         return reviewService.getReviews(cafeIdRequest);
     }
