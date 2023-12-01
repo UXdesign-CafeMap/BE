@@ -41,7 +41,7 @@ public class ReviewController {
 
     // 한 사람이 작성한 리뷰의 수
     @GetMapping("/count")
-    public BaseResponse<ReviewCountResponse> getReviewCount(@RequestBody @Valid MemberIdRequest memberIdRequest){
+    public BaseResponse<ReviewCountResponse> getReviewCount(@ModelAttribute @Valid MemberIdRequest memberIdRequest){
         log.info("[ReviewController.getReviews]");
         return reviewService.getReviewCount(memberIdRequest);
     }
