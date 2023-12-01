@@ -12,6 +12,9 @@ import uxdesign.cafemap.Domain.Review;
 import uxdesign.cafemap.Dto.Request.CafeIdRequest;
 import uxdesign.cafemap.Dto.Request.MemberIdRequest;
 import uxdesign.cafemap.Dto.Request.ReviewRequest;
+import uxdesign.cafemap.Dto.Response.GetReviewResponse;
+import uxdesign.cafemap.Dto.Response.PostReviewResponse;
+import uxdesign.cafemap.Dto.Response.ReviewCountResponse;
 
 import java.util.List;
 
@@ -20,18 +23,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
     private final ReviewDao reviewDao;
-    public BaseResponse<String> postReview(ReviewRequest reviewRequest){
+    public BaseResponse<PostReviewResponse> postReview(ReviewRequest reviewRequest){
         reviewDao.save(reviewRequest.getMemberId(), reviewRequest.getCafeId(), reviewRequest.getContent(), reviewRequest.getImgUrlList());
-        return new BaseResponse<>("리뷰 작성에 성공하였습니다.");
+        PostReviewResponse response = new PostReviewResponse();
+        response.setResponse("리뷰 작성에 성공하였습니다.");
+        return new BaseResponse<>(response);
     }
 
-    public BaseResponse<List<Review>> getReviews(CafeIdRequest cafeIdRequest){
-        List<Review> review = reviewDao.getReviews(cafeIdRequest.getCafeId());
+    public BaseResponse<GetReviewResponse> getReviews(CafeIdRequest cafeIdRequest){
+        GetReviewResponse review = reviewDao.getReviews(cafeIdRequest.getCafeId());
         return new BaseResponse<>(review);
     }
 
-    public BaseResponse<Integer> getReviewCount(MemberIdRequest memberIdRequest){
-        int reviewCount = reviewDao.getReviewCount(memberIdRequest.getMemberId());
-        return new BaseResponse<>(reviewCount);
+    public BaseResponse<ReviewCountResponse> getReviewCount(MemberIdRequest memberIdRequest){
+        ReviewCountResponse response = reviewDao.getReviewCount(memberIdRequest.getMemberId());
+        return new BaseResponse<>(response);
     }
 }

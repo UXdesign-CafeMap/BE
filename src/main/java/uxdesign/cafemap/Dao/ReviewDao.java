@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import uxdesign.cafemap.Domain.Cafe;
 import uxdesign.cafemap.Domain.Member;
 import uxdesign.cafemap.Domain.Review;
+import uxdesign.cafemap.Dto.Response.GetReviewResponse;
+import uxdesign.cafemap.Dto.Response.ReviewCountResponse;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -45,7 +47,7 @@ public class ReviewDao {
 
     }
 
-    public List<Review> getReviews(int cafeId) {
+    public GetReviewResponse getReviews(int cafeId) {
         String sql = "select * from review where cafe_id=:cafeId";
         Map<String, Object> param = Map.of("cafeId", cafeId);
 
@@ -73,13 +75,20 @@ public class ReviewDao {
             review1.setReviewImgList(reviewImg);
         }
 
-        return reviewList;
+        GetReviewResponse getReviewResponse = new GetReviewResponse();
+        getReviewResponse.setReviewList(reviewList);
+
+        return getReviewResponse;
     }
 
-    public int getReviewCount(int memberId) {
-        String sql = "c";
+    public ReviewCountResponse getReviewCount(int memberId) {
+        String sql = "select count(*) from review where member_id=:memberId";
         Map<String, Object> param = Map.of("memberId", memberId);
 
-        return jdbcTemplate.queryForObject(sql, param, Integer.class);
+        int count = jdbcTemplate.queryForObject(sql, param, Integer.class);
+        ReviewCountResponse response = new ReviewCountResponse();
+        response.setCount(count);
+
+        return response;
     }
 }
