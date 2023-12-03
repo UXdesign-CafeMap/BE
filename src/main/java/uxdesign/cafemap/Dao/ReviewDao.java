@@ -30,12 +30,10 @@ public class ReviewDao {
 
         jdbcTemplate.update(sql, param);
 
-        String returnSql = "select review_id from review where member_id=:memberId and cafe_id=:cafeId and content=:content";
-        Map<String, Object> returnParam = Map.of("memberId", mamberId,
-                "cafeId", cafeId,
-                "content", content);
+        String returnSql = "select last_insert_id()";
+        Map<String, Object> returnParam = Map.of();
 
-        int reviewId = jdbcTemplate.queryForObject(returnSql, returnParam, Integer.class);
+        int reviewId =  jdbcTemplate.queryForObject(returnSql, returnParam, Integer.class);
 
         for (String imgUrl : imgUrlList) {
             String reviewImgSql = "insert into reviewImage (review_id, image) values (:reviewId, :image)";

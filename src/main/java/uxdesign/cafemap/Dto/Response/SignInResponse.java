@@ -1,4 +1,4 @@
-package uxdesign.cafemap.Dto.Request;
+package uxdesign.cafemap.Dto.Response;
 
 import lombok.*;
 
@@ -7,8 +7,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberRequest {
+public class SignInResponse {
+    private int memberId;
     private String email;
-    private String password;
     private String nickname;
 }
