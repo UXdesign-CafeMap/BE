@@ -15,5 +15,6 @@ public class Cafe {
     private String distance;
     private String review;
     private String cafeImage;
+    private String isOpen;
     private int reviewCount;
 }

@@ -36,6 +36,7 @@ public class CafeDao {
             cafe.setCafeImage(rs.getString("cafeImg"));
             cafe.setDistance(rs.getString("distance"));
             cafe.setReview(rs.getString("review"));
+            cafe.setIsOpen(rs.getString("isOpen"));
             cafe.setReviewCount(reviewDao.getCafeReviewCount(rs.getInt("cafe_id")));
             return cafe;
         };
@@ -62,6 +63,7 @@ public class CafeDao {
             cafe.setCafeImage(rs.getString("cafeImg"));
             cafe.setDistance(rs.getString("distance"));
             cafe.setReview(rs.getString("review"));
+            cafe.setIsOpen(rs.getString("isOpen"));
             return cafe;
         };
 
