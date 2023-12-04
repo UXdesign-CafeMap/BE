@@ -5,27 +5,23 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
-import uxdesign.cafemap.Common.Response.BaseResponse;
 import uxdesign.cafemap.Domain.Cafe;
-import uxdesign.cafemap.Domain.Member;
 import uxdesign.cafemap.Domain.Menu;
-import uxdesign.cafemap.Domain.Review;
 import uxdesign.cafemap.Dto.Response.CafeDetailResponse;
 import uxdesign.cafemap.Dto.Response.MarkerCafeResponse;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @Repository
 public class CafeDao {
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    public CafeDao(DataSource dataSource) {
+    private final ReviewDao reviewDao;
+    public CafeDao(DataSource dataSource, ReviewDao reviewDao) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+        this.reviewDao = reviewDao;
     }
 
     public List<Cafe> getCafes() {
@@ -40,6 +36,7 @@ public class CafeDao {
             cafe.setCafeImage(rs.getString("cafeImg"));
             cafe.setDistance(rs.getString("distance"));
             cafe.setReview(rs.getString("review"));
+            cafe.setReviewCount(reviewDao.getCafeReviewCount(rs.getInt("cafe_id")));
             return cafe;
         };
 

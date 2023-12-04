@@ -22,28 +22,28 @@ public class CafeController {
     private final CafeService cafeService;
     // 카페 전체 조회
     @GetMapping("/")
-    public BaseResponse<CafeListResponse> getCafes(){
+    public BaseResponse<CafeListResponse> getCafes() {
         log.info("[CafeController.getCafes]");
         return cafeService.getCafes();
     }
 
     // 카페 조회
     @GetMapping("/detail")
-    public BaseResponse<CafeDetailResponse> getCafeDetail(@ModelAttribute CafeIdRequest cafeIdRequest){
+    public BaseResponse<CafeDetailResponse> getCafeDetail(@ModelAttribute CafeIdRequest cafeIdRequest) {
         log.info("[CafeController.getCafeDetail]");
         return cafeService.getCafeDetail(cafeIdRequest);
     }
 
     // 마커 클릭했을 떄 카페 조회
     @GetMapping("/marker")
-    public BaseResponse<MarkerCafeResponse> getCafeMarker(@ModelAttribute LocationRequest locationRequest){
+    public BaseResponse<MarkerCafeResponse> getCafeMarker(@ModelAttribute LocationRequest locationRequest) {
         log.info("[CafeController.getCafeMarker]");
         return cafeService.getCafeMarker(locationRequest);
     }
 
     // 카페 이름 검색
     @GetMapping("/search")
-    public BaseResponse<CafeListResponse> searchCafe(@ModelAttribute SearchRequest searchRequest){
+    public BaseResponse<CafeListResponse> searchCafe(@ModelAttribute SearchRequest searchRequest) {
         log.info("[CafeController.searchCafe]");
         return cafeService.searchCafe(searchRequest);
     }

@@ -89,4 +89,11 @@ public class ReviewDao {
 
         return response;
     }
+
+    public int getCafeReviewCount(int cafeId) {
+        String sql = "select count(*) from review where cafe_id=:cafeId";
+        Map<String, Object> param = Map.of("cafeId", cafeId);
+
+        return jdbcTemplate.queryForObject(sql, param, Integer.class);
+    }
 }
