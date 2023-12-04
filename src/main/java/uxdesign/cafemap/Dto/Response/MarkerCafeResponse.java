@@ -18,5 +18,6 @@ public class MarkerCafeResponse {
     private String distance;
     private String address;
     private String onpeningHours;
+    private String isOpen;
     private String cafeImage;
 }

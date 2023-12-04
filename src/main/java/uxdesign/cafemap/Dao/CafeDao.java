@@ -130,6 +130,7 @@ public class CafeDao {
             markerCafeResponse.setAddress(rs.getString("address"));
             markerCafeResponse.setCafeImage(rs.getString("cafeImg"));
             markerCafeResponse.setDistance(rs.getString("distance"));
+            markerCafeResponse.setIsOpen(rs.getString("isOpen"));
             markerCafeResponse.setOnpeningHours(rs.getString("openingHours"));
 
             return markerCafeResponse;
