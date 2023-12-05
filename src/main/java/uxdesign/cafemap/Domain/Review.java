@@ -13,7 +13,9 @@ import java.util.List;
 public class Review {
     private int reviewId;
     private int memberId;
+    private String nickname;
     private Date upload_date;
     private String content;
+    private int reviewCount;
     private List<String> reviewImgList;
 }

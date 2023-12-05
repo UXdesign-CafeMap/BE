@@ -55,6 +55,13 @@ public class ReviewDao {
             review.setMemberId(rs.getInt("member_id"));
             review.setContent(rs.getString("content"));
             review.setUpload_date(rs.getDate("upload_at"));
+            review.setReviewCount(getReviewCount(rs.getInt("member_id")).getCount());
+
+            String nicknameSql = "select nickname from member where member_id=:memberId";
+            Map<String, Object> nicknameParam = Map.of("memberId", rs.getInt("member_id"));
+            String nickname = jdbcTemplate.queryForObject(nicknameSql, nicknameParam, String.class);
+            review.setNickname(nickname);
+
             return review;
         };
 
